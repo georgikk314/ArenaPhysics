@@ -1,0 +1,23 @@
+﻿using ArenaPhysics.Data.Enums;
+
+namespace ArenaPhysics.Data.Entities
+{
+    public class Problem
+    {
+        public int Id { get; set; }
+        public Branch Branches { get; set; }
+        public Difficulty Difficulty { get; set; }
+        public Author Author { get; set; }
+        public string ProblemCode { get; set; }
+        public int Year { get; set; }
+        public int Grade { get; set; }
+        public Competition CompetitionName { get; set; }
+        public string ProblemFileName { get; set; }
+        public string AdditionalInformation { get; set; }
+        public int NumberOfFormulas { get; set; }
+        public string OfficialAnswers { get; set; } //formula1|formula2|...
+        public virtual List<UserProblem>? UserProblems { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
+
+    }
+}
