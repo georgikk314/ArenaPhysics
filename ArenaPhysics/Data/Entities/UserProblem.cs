@@ -12,6 +12,7 @@ namespace ArenaPhysics.Data.Entities
         public int ProblemId { get; set; }
         public double Points { get; set; }
         public bool IsSolved { get; set; }
+        public string UserAnswer { get; set; }
         public string? UserAnswerFileName { get; set; }
         //public virtual List<Problem>? Problems { get; set; }
         //public virtual List<User>? Users { get; set; }
