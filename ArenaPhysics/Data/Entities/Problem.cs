@@ -2,9 +2,8 @@
 
 namespace ArenaPhysics.Data.Entities
 {
-    public class Problem
+    public class Problem : BaseEntity
     {
-        public int Id { get; set; }
         public Branch Branches { get; set; }
         public Difficulty Difficulty { get; set; }
         public Author Author { get; set; }

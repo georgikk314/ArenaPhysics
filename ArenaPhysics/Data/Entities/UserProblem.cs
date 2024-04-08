@@ -3,9 +3,8 @@ using System.Diagnostics;
 
 namespace ArenaPhysics.Data.Entities
 {
-    public class UserProblem
+    public class UserProblem : BaseEntity
     {
-        public int Id { get; set; }
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         [ForeignKey(nameof(Problem))]
