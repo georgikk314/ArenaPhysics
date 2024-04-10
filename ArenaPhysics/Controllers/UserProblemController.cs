@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ArenaPhysics.DTOs.Requests;
+using ArenaPhysics.DTOs.Responses;
+using ArenaPhysics.Services;
+using ArenaPhysics.Services.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +12,42 @@ namespace ArenaPhysics.Controllers
     [ApiController]
     public class UserProblemController : ControllerBase
     {
-        // GET: api/<UserProblemController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IUserProblemService _userProblemService;
+
+        public UserProblemController(IUserProblemService userProblemService)
         {
-            return new string[] { "value1", "value2" };
+            _userProblemService = userProblemService;
         }
+
+
+        
 
         // GET api/<UserProblemController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<UserProblemResponseDTO>> GetUserProblem(int id)
         {
-            return "value";
+            return await _userProblemService.GetUserProblemByIdAsync(id);
         }
 
         // POST api/<UserProblemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<UserProblemResponseDTO>> PostUserProblem(UserProblemRequestDTO userProblem)
         {
+            await _userProblemService.AddUserProblemAsync(userProblem);
+            return CreatedAtAction("GetUserProblem", new { id = userProblem.Id }, userProblem);
         }
 
         // PUT api/<UserProblemController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<UserProblemResponseDTO>> PutUserProblem(int id, UserProblemRequestDTO userProblem)
         {
-        }
+            if (id != userProblem.Id)
+            {
+                return BadRequest();
+            }
 
-        // DELETE api/<UserProblemController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            await _userProblemService.UpdateUserProblemAsync(userProblem);
+            return NoContent();
         }
     }
 }

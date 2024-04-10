@@ -17,9 +17,9 @@ namespace ArenaPhysics.Services
             _mapper = mapper;
         }
 
-        public Task AddUserProblemAsync(UserProblemRequestDTO employee)
+        public Task AddUserProblemAsync(UserProblemRequestDTO userProblem)
         {
-            var entity = _mapper.Map<UserProblem>(employee);
+            var entity = _mapper.Map<UserProblem>(userProblem);
 
             return _repository.AddAsync(entity);
         }
@@ -31,9 +31,9 @@ namespace ArenaPhysics.Services
         }
 
 
-        public Task UpdateUserProblemAsync(UserProblemRequestDTO employee)
+        public Task UpdateUserProblemAsync(UserProblemRequestDTO userProblem)
         {
-            var entity = _mapper.Map<UserProblem>(employee);
+            var entity = _mapper.Map<UserProblem>(userProblem);
             return _repository.UpdateAsync(entity);
         }
     }

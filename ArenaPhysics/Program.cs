@@ -1,5 +1,10 @@
 using ArenaPhysics.Data;
+using ArenaPhysics.Data.Repositories.Abstractions;
+using ArenaPhysics.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using ArenaPhysics.Services.Abstractions;
+using ArenaPhysics.Data.Entities;
+using ArenaPhysics.Services;
 
 namespace ArenaPhysics
 {
@@ -14,6 +19,11 @@ namespace ArenaPhysics
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IUserProblemService, UserProblemService>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
