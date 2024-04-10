@@ -22,8 +22,9 @@ namespace ArenaPhysics
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IUserProblemService, UserProblemService>();
+            builder.Services.AddScoped<IProblemService, ProblemService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            //builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+           
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

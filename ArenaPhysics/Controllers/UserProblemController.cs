@@ -19,9 +19,6 @@ namespace ArenaPhysics.Controllers
             _userProblemService = userProblemService;
         }
 
-
-        
-
         // GET api/<UserProblemController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserProblemResponseDTO>> GetUserProblem(int id)

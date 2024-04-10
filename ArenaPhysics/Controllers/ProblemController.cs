@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ArenaPhysics.Data.Entities;
+using ArenaPhysics.DTOs.Requests;
+using ArenaPhysics.DTOs.Responses;
+using ArenaPhysics.Services.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +12,40 @@ namespace ArenaPhysics.Controllers
     [ApiController]
     public class ProblemController : ControllerBase
     {
-        // GET: api/<ProblemController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private readonly IProblemService _problemService;
+
+        public ProblemController(IProblemService problemService)
         {
-            return new string[] { "value1", "value2" };
+            _problemService = problemService;
         }
 
         // GET api/<ProblemController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ProblemResponseDTO>> GetProblem(int id)
         {
-            return "value";
+            return await _problemService.GetProblemByIdAsync(id);
         }
 
         // POST api/<ProblemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ProblemResponseDTO>> PostProblem(ProblemRequestDTO problem)
         {
+            await _problemService.AddProblemAsync(problem);
+            return CreatedAtAction("GetProblem", new { id = problem.Id }, problem);
         }
 
         // PUT api/<ProblemController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<ProblemRequestDTO>> PutProblem(int id, ProblemRequestDTO problem)
         {
+            if (problem.Id != id)
+            {
+                return BadRequest();
+            }    
+            await _problemService.UpdateProblemAsync(problem);
+            return NoContent();
         }
 
-        // DELETE api/<ProblemController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
