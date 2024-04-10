@@ -37,7 +37,7 @@ namespace ArenaPhysics.Controllers
 
         // PUT api/<ProblemController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProblemRequestDTO>> PutProblem(int id, ProblemRequestDTO problem)
+        public async Task<IActionResult> PutProblem(int id, ProblemRequestDTO problem)
         {
             if (problem.Id != id)
             {

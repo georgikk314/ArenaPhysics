@@ -23,6 +23,7 @@ namespace ArenaPhysics
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IUserProblemService, UserProblemService>();
             builder.Services.AddScoped<IProblemService, ProblemService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
            
 
