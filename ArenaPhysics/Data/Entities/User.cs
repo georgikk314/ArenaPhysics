@@ -1,6 +1,8 @@
-﻿namespace ArenaPhysics.Data.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ArenaPhysics.Data.Entities
 {
-    public class User : BaseEntity
+    public class User : IdentityUser
     {
         public string Username { get; set; }
         public string PasswordHash { get; set; }
