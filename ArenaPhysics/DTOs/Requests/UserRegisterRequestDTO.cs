@@ -4,7 +4,7 @@ namespace ArenaPhysics.DTOs.Requests
 {
     public class UserRegisterRequestDTO
     {
-        [MinLength(6)]
+        [MinLength(3)]
         [MaxLength(100)]
         public string Username { get; set; }
         [MinLength(6)]
@@ -15,7 +15,6 @@ namespace ArenaPhysics.DTOs.Requests
         public string FirstName { get; set; }
         [MaxLength(250)]
         public string LastName { get; set; }
-        [MaxLength(3)]
         public int Age { get; set; }
         public DateTime DateOfCreation { get; set; }
         

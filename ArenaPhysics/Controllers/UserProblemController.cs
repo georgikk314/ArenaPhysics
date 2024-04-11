@@ -2,6 +2,7 @@
 using ArenaPhysics.DTOs.Responses;
 using ArenaPhysics.Services;
 using ArenaPhysics.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,6 +11,7 @@ namespace ArenaPhysics.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "User,Admin")]
     public class UserProblemController : ControllerBase
     {
         private readonly IUserProblemService _userProblemService;
