@@ -49,7 +49,7 @@ namespace ArenaPhysics.Controllers
         {
             var user = new User()
             {
-                Username = userModel.Username,
+                UserName = userModel.Username,
                 Email = userModel.Email,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
@@ -95,7 +95,7 @@ namespace ArenaPhysics.Controllers
                 // Assign roles after successful user creation
                 
                 var userRole = "User";
-                if (user.Username == "admin")
+                if (user.UserName == "admin")
                 {
                     userRole = "Admin";
                 }
@@ -124,7 +124,7 @@ namespace ArenaPhysics.Controllers
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.UserName)
             };
 
             var roles = await _userManager.GetRolesAsync(user);

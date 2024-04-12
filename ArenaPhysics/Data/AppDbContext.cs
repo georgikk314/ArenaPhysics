@@ -14,6 +14,8 @@ namespace ArenaPhysics.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             /*
             modelBuilder.Entity<User>()
                 .HasMany(t => t.Comments)
@@ -29,8 +31,6 @@ namespace ArenaPhysics.Data
             base.OnModelCreating(modelBuilder);*/
         }
 
-
-        public DbSet<User> Users { get; set; }
         public DbSet<Problem> Problems { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<UserProblem> UserProblems { get; set; }

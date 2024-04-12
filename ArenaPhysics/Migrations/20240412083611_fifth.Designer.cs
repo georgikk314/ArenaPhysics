@@ -4,6 +4,7 @@ using ArenaPhysics.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArenaPhysics.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412083611_fifth")]
+    partial class fifth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ArenaPhysics.Data.Entities.Problem", b =>
@@ -96,7 +98,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Problems", (string)null);
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("ArenaPhysics.Data.Entities.UserProblem", b =>
@@ -135,7 +137,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("UserProblems", (string)null);
+                    b.ToTable("UserProblems");
                 });
 
             modelBuilder.Entity("CommentProblem", b =>
@@ -150,7 +152,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("ProblemsId");
 
-                    b.ToTable("CommentProblem", (string)null);
+                    b.ToTable("CommentProblem");
                 });
 
             modelBuilder.Entity("CommentUser", b =>
@@ -165,7 +167,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("CommentUser", (string)null);
+                    b.ToTable("CommentUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
