@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArenaPhysics.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240412083611_fifth")]
-    partial class fifth
+    [Migration("20240413103742_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

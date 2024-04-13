@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using ArenaPhysics.Data.Seeders;
 
 namespace ArenaPhysics
 {
@@ -91,6 +92,20 @@ namespace ArenaPhysics
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    DataSeeder.SeedRolesAndUsers(services).Wait(); // Wait for seeding to complete
+                }
+                catch (Exception ex)
+                {
+                    // Log the error
+                    Console.Error.WriteLine($"An error occurred while seeding the database: {ex.Message}");
+                }
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -99,7 +114,7 @@ namespace ArenaPhysics
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -42,7 +42,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ArenaPhysics.Data.Entities.Problem", b =>
@@ -96,7 +96,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Problems", (string)null);
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("ArenaPhysics.Data.Entities.UserProblem", b =>
@@ -135,7 +135,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("UserProblems", (string)null);
+                    b.ToTable("UserProblems");
                 });
 
             modelBuilder.Entity("CommentProblem", b =>
@@ -150,7 +150,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("ProblemsId");
 
-                    b.ToTable("CommentProblem", (string)null);
+                    b.ToTable("CommentProblem");
                 });
 
             modelBuilder.Entity("CommentUser", b =>
@@ -165,7 +165,7 @@ namespace ArenaPhysics.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("CommentUser", (string)null);
+                    b.ToTable("CommentUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
