@@ -15,6 +15,7 @@ namespace ArenaPhysics.DTOs.Requests
         public string ProblemFileName { get; set; }
         public string AdditionalInformation { get; set; }
         public int NumberOfFormulas { get; set; }
+        public string PointsDistribution { get; set; }
         public string Answer { get; set; }//formula1|formula2|...
         public string OfficialAnswers { get; set; } //filename
     }

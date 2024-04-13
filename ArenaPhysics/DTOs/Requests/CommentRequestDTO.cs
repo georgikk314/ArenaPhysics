@@ -6,7 +6,7 @@ namespace ArenaPhysics.DTOs.Requests
 {
     public class CommentRequestDTO : BaseRequestDTO
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public int ProblemId { get; set; }
         public string Content { get; set; }
     }

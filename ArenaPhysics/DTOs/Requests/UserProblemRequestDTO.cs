@@ -4,11 +4,9 @@ namespace ArenaPhysics.DTOs.Requests
 {
     public class UserProblemRequestDTO : BaseRequestDTO
     {
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public int ProblemId { get; set; }
-        public double Points { get; set; }
-        public bool isSolved { get; set; }
         public string? UserAnswerFileName { get; set; }
-        public string MyProperty { get; set; }
+        public string UserAnswer { get; set; }
     }
 }
