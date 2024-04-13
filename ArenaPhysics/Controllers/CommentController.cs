@@ -3,6 +3,8 @@ using ArenaPhysics.DTOs.Requests;
 using ArenaPhysics.DTOs.Responses;
 using ArenaPhysics.Services.Abstractions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,11 +23,17 @@ namespace ArenaPhysics.Controllers
             _commentService = commentService;
         }
 
-        // GET api/<CommentController>/5
-        [HttpGet("{problemId}")]
+        // GET api/Problem/<CommentController>/5
+        [HttpGet("Problem/{problemId}")]
         public async Task<ActionResult<List<CommentResponseDTO>>> GetCommentsByProblemId(int problemId)
         {
             return await _commentService.GetCommentsByProblemIdAsync(problemId);
+        }
+
+        [HttpGet("{commentId}")]
+        public async Task<ActionResult<CommentResponseDTO>> GetComment(int commentId)
+        {
+            return await _commentService.GetCommentByIdAsync(commentId);
         }
 
         // POST api/<CommentController>
@@ -33,7 +41,7 @@ namespace ArenaPhysics.Controllers
         public async Task<ActionResult<CommentResponseDTO>> PostComment(CommentRequestDTO comment)
         {
             await _commentService.AddCommentAsync(comment);
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            return NoContent();
         }
 
         // PUT api/<CommentController>/5

@@ -4,6 +4,8 @@ using ArenaPhysics.DTOs.Requests;
 using ArenaPhysics.DTOs.Responses;
 using ArenaPhysics.Services.Abstractions;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace ArenaPhysics.Services
 {
@@ -11,17 +13,25 @@ namespace ArenaPhysics.Services
     {
         private readonly IRepository<Comment> _repository;
         private readonly IMapper _mapper;
-        public CommentService(IRepository<Comment> repository, IMapper mapper)
+        private readonly UserManager<User> _userManager;
+        public CommentService(IRepository<Comment> repository, IMapper mapper, UserManager<User> userManager)
         {
             _repository = repository;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
-        public Task AddCommentAsync(CommentRequestDTO comment)
+        public async Task AddCommentAsync(CommentRequestDTO comment)
         {
-            var entity = _mapper.Map<Comment>(comment);
+            var user = await _userManager.FindByNameAsync(comment.UserName);
+            var entity = new Comment()
+            {
+                UserId = user.Id,
+                ProblemId = comment.ProblemId,
+                Content = comment.Content
+            };
 
-            return _repository.AddAsync(entity);
+            await _repository.AddAsync(entity);
         }
 
         public async Task<List<CommentResponseDTO>> GetCommentsByProblemIdAsync(int problemId)
@@ -30,11 +40,25 @@ namespace ArenaPhysics.Services
             return _mapper.Map<List<CommentResponseDTO>>(list);
         }
 
-
-        public Task UpdateCommentAsync(CommentRequestDTO comment)
+        public async Task<CommentResponseDTO> GetCommentByIdAsync(int commentId)
         {
-            var entity = _mapper.Map<Comment>(comment);
-            return _repository.UpdateAsync(entity);
+            var item = await _repository.GetByIdAsync(commentId);
+            return _mapper.Map<CommentResponseDTO>(item);
+        }
+
+
+        public async Task UpdateCommentAsync(CommentRequestDTO comment)
+        {
+            var user = await _userManager.FindByNameAsync(comment.UserName);
+            var entity = new Comment()
+            {
+                Id = comment.Id,
+                UserId = user.Id,
+                ProblemId = comment.ProblemId,
+                Content = comment.Content
+            };
+
+            await _repository.UpdateAsync(entity);
         }
 
         public Task DeleteCommentByIdAsync(int id)

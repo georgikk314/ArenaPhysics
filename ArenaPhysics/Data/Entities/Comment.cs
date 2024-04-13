@@ -5,7 +5,7 @@ namespace ArenaPhysics.Data.Entities
     public class Comment : BaseEntity
     {
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [ForeignKey(nameof(Problem))]
         public int ProblemId { get; set; }
         public string Content { get; set; }

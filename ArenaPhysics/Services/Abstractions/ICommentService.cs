@@ -1,5 +1,6 @@
 ﻿using ArenaPhysics.DTOs.Requests;
 using ArenaPhysics.DTOs.Responses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ArenaPhysics.Services.Abstractions
 {
@@ -9,5 +10,6 @@ namespace ArenaPhysics.Services.Abstractions
         Task AddCommentAsync(CommentRequestDTO comment); // add comment
         Task UpdateCommentAsync(CommentRequestDTO comment); // edit comment
         Task DeleteCommentByIdAsync(int id); //delete comment
+        Task<CommentResponseDTO> GetCommentByIdAsync(int commentId);
     }
 }
