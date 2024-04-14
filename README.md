@@ -23,92 +23,94 @@
 ### База данни
 - Базата данни е доста лека, липсата на много обекти прави базата данни лесна за осъществяване
 - Имаме 4 основни таблици (Users, Comments, Problems, UserProblems) и 2 свързващи (UserComments, ProblemComments)
-Users:
-Id VARCHAR PK
-UserName VARCHAR
-Email VARCHAR
-FirstName VARCHAR
-LastName VARCHAR
-Age INT
-DateOfCreation DATE
-ProblemsPoints FLOAT
-NumberOfProblemsSolved INT
-+ допълнителни колони за статистика за потребителя (които все още не са интегрирани в проекта
 
-Comments:
-Id INT PK
-Content VARCHAR 
+Users:\
+Id VARCHAR PK\
+UserName VARCHAR\
+Email VARCHAR\
+FirstName VARCHAR\
+LastName VARCHAR\
+Age INT\
+DateOfCreation DATE\
+ProblemsPoints FLOAT\
+NumberOfProblemsSolved INT\
+допълнителни колони за статистика за потребителя (които все още не са интегрирани в проекта
 
-Problems:
-Id INT PK
-Branches ENUM (...branches...)
-Difficulty ENUM (...difficulties...)
-Author (...authors...)
-ProblemCode VARCHAR (номер на задачата от темата)
-Year INT (година на провеждане)
-Grade INT (предназначена за кой клас)
-CompetitionName ENUM (...competitions...) 
-ProblemFileName VARCHAR (име на файла със задачата)
-AdditionalInformation VARCHAR (допълнителна информация за задачата)
-NumberOfFormulas INT (брой на формулите носещи точки)
-PointsDistribution VARCHAR (как се разпределят точките по формулите записано във формат "2|6|2|....")
-Answer VARCHAR (отговор на задачата записан във формат "formula1|formula2|...")
+Comments:\
+Id INT PK\
+Content VARCHAR
+
+Problems:\
+Id INT PK\
+Branches ENUM (...branches...)\
+Difficulty ENUM (...difficulties...)\
+Author (...authors...)\
+ProblemCode VARCHAR (номер на задачата от темата)\
+Year INT (година на провеждане)\
+Grade INT (предназначена за кой клас)\
+CompetitionName ENUM (...competitions...)\ 
+ProblemFileName VARCHAR (име на файла със задачата)\
+AdditionalInformation VARCHAR (допълнителна информация за задачата)\
+NumberOfFormulas INT (брой на формулите носещи точки)\
+PointsDistribution VARCHAR (как се разпределят точките по формулите записано във формат "2|6|2|....")\
+Answer VARCHAR (отговор на задачата записан във формат "formula1|formula2|...")\
 OfficialAnswers VARCHAR (име на файла с отговора за задачата)
 
-UserProblems: (таблица с информация за решението на конкретен потребител за някоя задача)
-UserId VARCHAR 
-ProblemId INT
-Points FLOAT
-PointsDistribution VARCHAR (как се разпределят точките по формулите записано във формат "2|6|2|....")
-IsSolved BOOLEAN
-UserAnswer VARCHAR (отговор на задачата записан във формат "formula1|formula2|...")
+UserProblems: (таблица с информация за решението на конкретен потребител за някоя задача)\
+UserId VARCHAR \
+ProblemId INT\
+Points FLOAT\
+PointsDistribution VARCHAR (как се разпределят точките по формулите записано във формат "2|6|2|....")\
+IsSolved BOOLEAN\
+UserAnswer VARCHAR (отговор на задачата записан във формат "formula1|formula2|...")\
 UserAnswerFileName VARCHAR (име на файла с отговора за задачата от потребителя само ако е решил всичко)
 
-UserComments:
-UserId VARCHAR
+UserComments:\
+UserId VARCHAR\
 CommentId INT
 
-ProblemComments:
-ProblemId INT
+ProblemComments:\
+ProblemId INT\
 CommentId INT
 
 ### API ENDPOINTS
-/api/Auth/Login [POST] - endpoint за вход на потребителите
+/api/Auth/Login [POST] - endpoint за вход на потребителите\
 /api/Auth/Register [POST] - endpoint за регистрация на потребителите
 
-/api/Comment/Problem/{problemId} [GET] - endpoint за виждане на всички коментари по една конкретна задача
-/api/Comment/{commentId} [GET] - endpoint за виждане на конкретен коментар
-/api/Comment [POST] - endpoint за създаване на коментар от определен потребител под определена задача
-/api/Comment{id} [PUT] - endpoint за редакция на коментар
+/api/Comment/Problem/{problemId} [GET] - endpoint за виждане на всички коментари по една конкретна задача\
+/api/Comment/{commentId} [GET] - endpoint за виждане на конкретен коментар\
+/api/Comment [POST] - endpoint за създаване на коментар от определен потребител под определена задача\
+/api/Comment{id} [PUT] - endpoint за редакция на коментар\
 /api/Comment{id} [DELETE] - endpoint за изтриване на коментар
 
-/api/Problem/{id} [GET] - endpoint за виждане на конкретна задача
-/api/Problem/{id} [PUT] - endpoint за редакция на задача - ПОЗВОЛЕНО САМО ЗА АДМИНСКА РОЛЯ
+/api/Problem/{id} [GET] - endpoint за виждане на конкретна задача\
+/api/Problem/{id} [PUT] - endpoint за редакция на задача - ПОЗВОЛЕНО САМО ЗА АДМИНСКА РОЛЯ\
 /api/Problem [POST] - endpoint за създаване на задача - ПОЗВОЛЕНО САМО ЗА АДМИНСКА РОЛЯ
 
-/api/UserProblem/{id} [GET] - endpoint за извличане на резултатите от проверяващата система
-/api/UserProblem/{id} [PUT] - endpoint за повторен опит за решаване на задачата
+/api/UserProblem/{id} [GET] - endpoint за извличане на резултатите от проверяващата система\
+/api/UserProblem/{id} [PUT] - endpoint за повторен опит за решаване на задачата\
 /api/UserProblem [POST] - endpoint за опит за решаване на задачата
 
 ### SECURITY
 - Използвам JWT token, който се подава при аутентикация на потребителя.
 - След 1 час този токен се инвалидира и потребителя трябва да се аутентикира отново.
-- Има 2 роли - потребител и админ, админът има допълнителни права да създава задачи
+- Има 2 роли - потребител и админ, админът има допълнителни права да създава задачи.
 
 ### FRONTEND PAGES (ARCHITECTURE)
 - index.html -----> 1), 2), 3), 4)
--1) problem-maker.html (post api endpoint for Problem) [САМО ЗА АДМИНСКИ ДОСТЪП]
-0) login/register.html (api endpoints for Authentication)
-1) rules-of-use.html
-2) contact.html
-3) user-menu.html
-4) ranking.html
-5) competitions.html ----> 5.1) National Olympiad, .... 
-5.1) nat-olymp.html ----> 5.1.1) year 2023, .....
-5.1.1) year-2023.html ----> 5.1.1.1) class 12, ....  
-5.1.1.1) class-12.html ----> 5.1.1.1.1) problem1, 5.1.1.1.2) problem2, ....
-5.1.1.1.1) problem1.html ----> бутон изпрати решение препращащ към нова страница problem1-ans, скрити коментари под задачата (потребителя може да ги разкрие -> api endpoints for Comments)
-5.1.1.1.1.1) problem1-ans ----> бутон за изпращане на решението правещ запис в базата данни (api endpoints for UserProblem)
+
+1) problem-maker.html (post api endpoint for Problem) [САМО ЗА АДМИНСКИ ДОСТЪП]\
+2) login/register.html (api endpoints for Authentication)
+3) rules-of-use.html
+4) contact.html
+5) user-menu.html
+6) ranking.html
+7) competitions.html ----> 7.1) National Olympiad, ....\
+7.1) nat-olymp.html ----> 7.1.1) year 2023, .....\
+7.1.1) year-2023.html ----> 7.1.1.1) class 12, ....  
+7.1.1.1) class-12.html ----> 7.1.1.1.1) problem1, 7.1.1.1.2) problem2, ....\
+7.1.1.1.1) problem1.html ----> бутон изпрати решение препращащ към нова страница problem1-ans, скрити коментари под задачата (потребителя може да ги разкрие -> api endpoints for Comments)\
+7.1.1.1.1.1) problem1-ans ----> бутон за изпращане на решението правещ запис в базата данни (api endpoints for UserProblem)\
 
 ## Поле за подобрение
 - Добавяне на user-friendly фронтенд
@@ -117,7 +119,7 @@ CommentId INT
 - Добавяне на ранглиста, която утилизира статистиката събирана в таблицата Users
 
 
-*Недовършен проект, но моя идея от дълго време, която евентуално ще бъде осъществена!*
+*Недовършен проект, но моя идея от дълго време, която евентуално ще бъде осъществена!*\
 От Георги Костадинов (състезател по физика)
 
 
